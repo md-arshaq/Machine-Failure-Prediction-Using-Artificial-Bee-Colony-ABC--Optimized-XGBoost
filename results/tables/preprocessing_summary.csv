@@ -1,0 +1,7 @@
+Preprocessing Step,Specification
+Dataset Filtering,"Removed 2 identifier columns (UDI, Product ID) and 5 leakage failure-mode indicators (TWF, HDF, PWF, OSF, RNF)"
+Feature Engineering,Engineered 'temperature_difference' = Process temperature [K] - Air temperature [K]
+Categorical Encoding,"OneHotEncoder fitted exclusively on training split; generated Type_H, Type_L, Type_M"
+Logical Grouping,7 logical groups; Type dummy columns treated as an indivisible single block (Group 0)
+Data Partitioning,"Stratified 70/15/15: Train=7000 (237 failures, 3.39%), Val=1500 (51 failures, 3.40%), Test=1500 (51 failures, 3.40%)"
+Class Imbalance Strategy,"scale_pos_weight = N_negative / N_positive = 28.54 on training set for baseline; bounded tuning [1, 30] in ABC"

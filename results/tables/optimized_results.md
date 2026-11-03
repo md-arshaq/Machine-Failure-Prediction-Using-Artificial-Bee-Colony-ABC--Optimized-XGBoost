@@ -1,0 +1,14 @@
+### Table 5: ABC Best Discovered Hyperparameters & Feature Mask
+
+| Hyperparameter / Decision   | Optimal Value                                                                                                         |
+|:----------------------------|:----------------------------------------------------------------------------------------------------------------------|
+| Selected Feature Groups     | Type (L, M, H), Process temperature [K], Rotational speed [rpm], Torque [Nm], Tool wear [min], temperature_difference |
+| n_estimators                | 561                                                                                                                   |
+| max_depth                   | 6                                                                                                                     |
+| learning_rate               | 0.0587                                                                                                                |
+| min_child_weight            | 7.43                                                                                                                  |
+| subsample                   | 0.726                                                                                                                 |
+| colsample_bytree            | 0.935                                                                                                                 |
+| gamma                       | 2.47                                                                                                                  |
+| scale_pos_weight            | 4.36                                                                                                                  |
+| Best Validation AP          | 0.869808                                                                                                              |

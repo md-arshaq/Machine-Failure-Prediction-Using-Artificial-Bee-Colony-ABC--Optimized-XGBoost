@@ -1,0 +1,28 @@
+{
+  "best_validation_ap": 0.8698078331985304,
+  "best_hyperparameters": {
+    "n_estimators": 561,
+    "max_depth": 6,
+    "learning_rate": 0.0587,
+    "min_child_weight": 7.43,
+    "subsample": 0.726,
+    "colsample_bytree": 0.935,
+    "gamma": 2.47,
+    "scale_pos_weight": 4.36,
+    "tree_method": "hist",
+    "objective": "binary:logistic",
+    "eval_metric": "aucpr"
+  },
+  "best_feature_mask": [
+    true,
+    false,
+    true,
+    true,
+    true,
+    true,
+    true
+  ],
+  "actual_evaluations": 132,
+  "cache_hits": 86,
+  "total_requests": 218
+}

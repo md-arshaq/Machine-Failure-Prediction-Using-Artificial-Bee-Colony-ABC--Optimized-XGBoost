@@ -1,0 +1,97 @@
+[2026-11-02 22:49:47] [INFO] [cli]: Loading configuration from config.yaml...
+[2026-11-02 22:49:47] [INFO] [cli]: Executing stage: 'all' (Quick=False, Resume=False)
+[2026-11-02 22:49:47] [INFO] [experiment]: Starting COMPLETE experimental pipeline...
+[2026-11-02 22:49:47] [INFO] [data_loader]: Loading raw dataset from data/raw/ai4i2020.csv
+[2026-11-02 22:49:47] [INFO] [data_loader]: Raw data loaded: 10000 rows, 14 columns. Failures: 339 (3.39%), Non-failures: 9661.
+[2026-11-02 22:49:47] [INFO] [data_loader]: Removed leakage/identifier columns ['OSF', 'RNF', 'Product ID', 'HDF', 'UDI', 'TWF', 'PWF']. Cleaned dataset shape: (10000, 7).
+[2026-11-02 22:49:47] [INFO] [feature_engineering]: Successfully engineered 'temperature_difference' feature.
+[2026-11-02 22:49:47] [INFO] [preprocessing]: Dataset split: Train=7000 (70.0%), Val=1500 (15.0%), Test=1500 (15.0%).
+[2026-11-02 22:49:47] [INFO] [preprocessing]: OneHotEncoder fitted. Total encoded columns: 9. Logical groups: 7.
+[2026-11-02 22:49:47] [INFO] [experiment]: === Running Stage: Exploratory Data Analysis (EDA) ===
+[2026-11-02 22:49:47] [INFO] [eda]: Generating Figure 1: Target Class Distribution...
+[2026-11-02 22:50:01] [INFO] [eda]: Saved results/figures\fig01_target_distribution.png
+[2026-11-02 22:50:01] [INFO] [eda]: Generating Figure 2: Feature Correlation Heatmap...
+[2026-11-02 22:50:10] [INFO] [eda]: Saved results/figures\fig02_correlation_heatmap.png
+[2026-11-02 22:50:10] [INFO] [eda]: Generating Figure 3: Feature Distributions by Failure State...
+[2026-11-02 22:50:35] [INFO] [eda]: Saved results/figures\fig03_feature_distributions.png
+[2026-11-02 22:50:35] [INFO] [eda]: Generating Figure 4: Failure Distribution by Product Type...
+[2026-11-02 22:50:38] [INFO] [eda]: Saved results/figures\fig04_failure_by_type.png
+[2026-11-02 22:50:38] [INFO] [eda]: Generating Table 1: Dataset Summary...
+[2026-11-02 22:50:39] [INFO] [eda]: Generating Table 2: Preprocessing Summary...
+[2026-11-02 22:50:39] [INFO] [eda]: EDA completed successfully! Figures 1-4 and Tables 1-2 generated.
+[2026-11-02 22:50:39] [INFO] [experiment]: === Running Stage: Baseline XGBoost Model ===
+[2026-11-02 22:50:39] [INFO] [baseline]: Training Baseline XGBoost with 9 features and scale_pos_weight=28.54...
+[2026-11-02 22:50:44] [INFO] [baseline]: Baseline training completed in 4.763 seconds.
+[2026-11-02 22:50:44] [INFO] [baseline]: Baseline Results -> Val AP: 0.8295 | Val F1: 0.7179 | Test AP: 0.8268 | Test F1: 0.7059
+[2026-11-02 22:50:44] [INFO] [model]: Model saved to results/models\baseline_xgb.json
+[2026-11-02 22:50:44] [INFO] [baseline]: Baseline test predictions saved to results/predictions\baseline_test_predictions.csv
+[2026-11-02 22:50:44] [INFO] [experiment]: === Running Stage: ABC Optimization (Resume=False) ===
+[2026-11-02 22:50:44] [INFO] [abc_optimizer]: Initializing ABC population with 10 food sources in [0, 1]^15...
+[2026-11-02 22:50:44] [INFO] [fitness]: [Eval #1/240] Cycle=0 (init_0) | Features=5/7 | Val AP=0.7251 | Time=0.31s
+[2026-11-02 22:50:53] [INFO] [fitness]: [Eval #10/240] Cycle=0 (init_9) | Features=2/7 | Val AP=0.4282 | Time=0.72s
+[2026-11-02 22:50:53] [INFO] [abc_optimizer]: Initialization complete. Initial Best Val AP: 0.7944
+[2026-11-02 22:50:53] [INFO] [abc_optimizer]: Starting ABC optimization from cycle 1 to 10 (Max Evals: 240)...
+[2026-11-02 22:50:59] [INFO] [abc_optimizer]: [Cycle 1/10] Best AP: 0.7944 | Mean AP: 0.4024 | Improvements: 1 | Scouts: 0 | Actual Evals: 18/240
+[2026-11-02 22:50:59] [INFO] [abc_optimizer]: Cycle 1 checkpoint saved to checkpoints\abc_state.json
+[2026-11-02 22:51:02] [INFO] [fitness]: [Eval #20/240] Cycle=2 (employed_1) | Features=4/7 | Val AP=0.5051 | Time=2.52s
+[2026-11-02 22:51:14] [INFO] [fitness]: [Eval #30/240] Cycle=2 (onlooker_8) | Features=4/7 | Val AP=0.4004 | Time=1.15s
+[2026-11-02 22:51:15] [INFO] [abc_optimizer]: [Cycle 2/10] Best AP: 0.7944 | Mean AP: 0.3739 | Improvements: 4 | Scouts: 1 | Actual Evals: 31/240
+[2026-11-02 22:51:15] [INFO] [abc_optimizer]: Cycle 2 checkpoint saved to checkpoints\abc_state.json
+[2026-11-02 22:51:25] [INFO] [abc_optimizer]: [Cycle 3/10] Best AP: 0.8023 | Mean AP: 0.3764 | Improvements: 4 | Scouts: 0 | Actual Evals: 39/240
+[2026-11-02 22:51:25] [INFO] [abc_optimizer]: Cycle 3 checkpoint saved to checkpoints\abc_state.json
+[2026-11-02 22:51:26] [INFO] [fitness]: [Eval #40/240] Cycle=4 (employed_1) | Features=5/7 | Val AP=0.1838 | Time=0.78s
+[2026-11-02 22:51:33] [INFO] [fitness]: [Eval #50/240] Cycle=4 (onlooker_7) | Features=4/7 | Val AP=0.5445 | Time=0.43s
+[2026-11-02 22:51:34] [INFO] [abc_optimizer]: [Cycle 4/10] Best AP: 0.8023 | Mean AP: 0.4197 | Improvements: 4 | Scouts: 1 | Actual Evals: 52/240
+[2026-11-02 22:51:34] [INFO] [abc_optimizer]: Cycle 4 checkpoint saved to checkpoints\abc_state.json
+[2026-11-02 22:51:40] [INFO] [fitness]: [Eval #60/240] Cycle=5 (onlooker_1) | Features=5/7 | Val AP=0.7306 | Time=0.71s
+[2026-11-02 22:51:43] [INFO] [abc_optimizer]: [Cycle 5/10] Best AP: 0.8023 | Mean AP: 0.4746 | Improvements: 2 | Scouts: 1 | Actual Evals: 66/240
+[2026-11-02 22:51:43] [INFO] [abc_optimizer]: Cycle 5 checkpoint saved to checkpoints\abc_state.json
+[2026-11-02 22:51:45] [INFO] [fitness]: [Eval #70/240] Cycle=6 (employed_3) | Features=2/7 | Val AP=0.2172 | Time=0.27s
+[2026-11-02 22:51:58] [INFO] [abc_optimizer]: [Cycle 6/10] Best AP: 0.8023 | Mean AP: 0.4630 | Improvements: 0 | Scouts: 1 | Actual Evals: 77/240
+[2026-11-02 22:51:58] [INFO] [abc_optimizer]: Cycle 6 checkpoint saved to checkpoints\abc_state.json
+[2026-11-02 22:52:02] [INFO] [fitness]: [Eval #80/240] Cycle=7 (employed_8) | Features=4/7 | Val AP=0.5398 | Time=0.59s
+[2026-11-02 22:52:17] [INFO] [abc_optimizer]: [Cycle 7/10] Best AP: 0.8644 | Mean AP: 0.4934 | Improvements: 3 | Scouts: 1 | Actual Evals: 88/240
+[2026-11-02 22:52:17] [INFO] [abc_optimizer]: Cycle 7 checkpoint saved to checkpoints\abc_state.json
+[2026-11-02 22:52:18] [INFO] [fitness]: [Eval #90/240] Cycle=8 (employed_1) | Features=5/7 | Val AP=0.1761 | Time=0.69s
+[2026-11-02 22:52:26] [INFO] [fitness]: [Eval #100/240] Cycle=8 (onlooker_7) | Features=4/7 | Val AP=0.4125 | Time=2.66s
+[2026-11-02 22:52:37] [INFO] [abc_optimizer]: [Cycle 8/10] Best AP: 0.8698 | Mean AP: 0.5763 | Improvements: 6 | Scouts: 1 | Actual Evals: 103/240
+[2026-11-02 22:52:37] [INFO] [abc_optimizer]: Cycle 8 checkpoint saved to checkpoints\abc_state.json
+[2026-11-02 22:52:47] [INFO] [fitness]: [Eval #110/240] Cycle=9 (employed_7) | Features=4/7 | Val AP=0.4125 | Time=1.10s
+[2026-11-02 22:52:52] [INFO] [abc_optimizer]: [Cycle 9/10] Best AP: 0.8698 | Mean AP: 0.6057 | Improvements: 4 | Scouts: 1 | Actual Evals: 117/240
+[2026-11-02 22:52:52] [INFO] [abc_optimizer]: Cycle 9 checkpoint saved to checkpoints\abc_state.json
+[2026-11-02 22:52:55] [INFO] [fitness]: [Eval #120/240] Cycle=10 (employed_2) | Features=4/7 | Val AP=0.5553 | Time=0.83s
+[2026-11-02 22:53:13] [INFO] [fitness]: [Eval #130/240] Cycle=10 (onlooker_6) | Features=6/7 | Val AP=0.8698 | Time=0.73s
+[2026-11-02 22:53:14] [INFO] [abc_optimizer]: [Cycle 10/10] Best AP: 0.8698 | Mean AP: 0.5409 | Improvements: 3 | Scouts: 1 | Actual Evals: 132/240
+[2026-11-02 22:53:14] [INFO] [abc_optimizer]: Cycle 10 checkpoint saved to checkpoints\abc_state.json
+[2026-11-02 22:53:14] [INFO] [abc_optimizer]: ABC convergence history saved to results/logs\abc_convergence.csv
+[2026-11-02 22:53:14] [INFO] [experiment]: ABC Optimization Complete! Best Val AP: 0.8698 across 132 actual evaluations (86 cache hits).
+[2026-11-02 22:53:14] [INFO] [experiment]: === Running Stage: Final Multi-Seed Model Evaluation ===
+[2026-11-02 22:53:15] [INFO] [preprocessing]: OneHotEncoder fitted. Total encoded columns: 9. Logical groups: 7.
+[2026-11-02 22:53:15] [INFO] [evaluation]: --- Running Final Evaluation for Seed 0 ---
+[2026-11-02 22:53:18] [INFO] [evaluation]: Seed 0 | Baseline Test AP: 0.8363 (F1: 0.7736) | ABC-XGB Test AP: 0.8506 (F1: 0.7736)
+[2026-11-02 22:53:18] [INFO] [evaluation]: --- Running Final Evaluation for Seed 1 ---
+[2026-11-02 22:53:21] [INFO] [evaluation]: Seed 1 | Baseline Test AP: 0.8284 (F1: 0.7455) | ABC-XGB Test AP: 0.8415 (F1: 0.7636)
+[2026-11-02 22:53:21] [INFO] [evaluation]: --- Running Final Evaluation for Seed 2 ---
+[2026-11-02 22:53:24] [INFO] [evaluation]: Seed 2 | Baseline Test AP: 0.8399 (F1: 0.7273) | ABC-XGB Test AP: 0.8485 (F1: 0.7778)
+[2026-11-02 22:53:24] [INFO] [evaluation]: --- Running Final Evaluation for Seed 3 ---
+[2026-11-02 22:53:27] [INFO] [evaluation]: Seed 3 | Baseline Test AP: 0.8301 (F1: 0.7619) | ABC-XGB Test AP: 0.8478 (F1: 0.7593)
+[2026-11-02 22:53:27] [INFO] [evaluation]: --- Running Final Evaluation for Seed 4 ---
+[2026-11-02 22:53:30] [INFO] [evaluation]: Seed 4 | Baseline Test AP: 0.8513 (F1: 0.7568) | ABC-XGB Test AP: 0.8521 (F1: 0.8000)
+[2026-11-02 22:53:30] [INFO] [model]: Model saved to results/models\abc_optimized_xgb.json
+[2026-11-02 22:53:30] [INFO] [experiment]: === Running Stage: Visualization & Reporting ===
+[2026-11-02 22:53:32] [INFO] [visualization]: Saved results/figures\fig05_abc_convergence.png
+[2026-11-02 22:53:34] [INFO] [visualization]: Saved results/figures\fig06_best_fitness_vs_evals.png
+[2026-11-02 22:53:35] [INFO] [visualization]: Saved results/figures\fig07_exploration_exploitation.png
+[2026-11-02 22:53:36] [INFO] [visualization]: Saved results/figures\fig08_metric_comparison.png
+[2026-11-02 22:53:37] [INFO] [visualization]: Saved results/figures\fig09_baseline_confusion_matrix.png
+[2026-11-02 22:53:38] [INFO] [visualization]: Saved results/figures\fig10_optimized_confusion_matrix.png
+[2026-11-02 22:53:39] [INFO] [visualization]: Saved results/figures\fig11_roc_curves.png
+[2026-11-02 22:53:40] [INFO] [visualization]: Saved results/figures\fig12_precision_recall_curves.png
+[2026-11-02 22:53:41] [INFO] [visualization]: Saved results/figures\fig13_feature_importance.png
+[2026-11-02 22:53:43] [INFO] [visualization]: Saved results/figures\fig14_feature_selection_frequency.png
+[2026-11-02 22:53:45] [INFO] [visualization]: Saved results/figures\fig15_search_analysis.png
+[2026-11-02 22:53:45] [INFO] [visualization]: All Figures (5 through 15) successfully generated.
+[2026-11-02 22:53:45] [INFO] [evaluation]: Tables 4, 5, and 8 generated successfully.
+[2026-11-02 22:53:45] [INFO] [experiment]: Summary report written to results\summary.md
+[2026-11-02 22:53:45] [INFO] [experiment]: Complete pipeline finished successfully!
+[2026-11-02 22:53:45] [INFO] [cli]: Process finished successfully.

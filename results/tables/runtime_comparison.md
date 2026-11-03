@@ -1,0 +1,11 @@
+### Table 8: Computational Runtime Breakdown
+
+| Stage                               |   Time (seconds) | Notes                                                           |
+|:------------------------------------|-----------------:|:----------------------------------------------------------------|
+| Data Loading & Preprocessing        |            0.534 | Leakage removal, feature engineering, stratified 70/15/15 split |
+| EDA & Initial Visualizations        |           51.447 | Figures 1-4, Tables 1-2                                         |
+| Baseline Model Training             |            5.052 | XGBoost baseline on Train/Val/Test                              |
+| ABC Optimization Search             |          150.453 | 132 actual model evals, 86 cache hits                           |
+| Final Multi-Seed Training (5 seeds) |           15.974 | Combined dev set retraining (Baseline vs ABC)                   |
+| Visualization & Reporting           |            0     | Figures 5-15, markdown report                                   |
+| Total Pipeline Execution            |          223.46  | Overall runtime (3.72 minutes)                                  |
